@@ -21,12 +21,6 @@ public OnPluginStart()
 
 public Action:Cmd_Bhop(int client, int args)
 {
-    if (client <= 0 || !IsClientInGame(client))
-    {
-        PrintToChat(client, "[Auto Bunnyhop] Invalid client or client not in game.");
-        return Plugin_Handled;
-    }
-
     if (!IsPlayerAdmin(client))
     {
         PrintToChat(client, "[Auto Bunnyhop] You dont have permission to use this command!");
