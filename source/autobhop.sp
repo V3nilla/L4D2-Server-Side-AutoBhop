@@ -30,14 +30,7 @@ public Action Cmd_Bhop(int client, int args)
 
     g_Bhop[client] = !g_Bhop[client];
 
-    if (g_Bhop[client])
-    {
-        PrintToChat(client, "%t", "AutoBhop Enabled");
-    }
-    else
-    {
-        PrintToChat(client, "%t", "AutoBhop Disabled");
-    }
+    (IsPlayerAdmin(client) && PrintToChat(client, "%t", g_Bhop[client] ? "AutoBhop Enabled" : "AutoBhop Disabled"));
 
     return Plugin_Handled;
 }
