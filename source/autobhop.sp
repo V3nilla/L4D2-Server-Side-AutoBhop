@@ -17,13 +17,14 @@ public Plugin:myinfo =
 public OnPluginStart()
 {
     RegConsoleCmd("sm_bhop", Cmd_Bhop);
+    LoadTranslations("custom_autobhop.phrases");
 }
 
 public Action:Cmd_Bhop(int client, int args)
 {
     if (!IsPlayerAdmin(client))
     {
-        PrintToChat(client, "[Auto Bunnyhop] You dont have permission to use this command!");
+        PrintToChat(client, "%t", "No Permission");
         return Plugin_Handled;
     }
 
@@ -31,11 +32,11 @@ public Action:Cmd_Bhop(int client, int args)
 
     if (g_Bhop[client])
     {
-        PrintToChat(client, "[Auto Bunnyhop] AutoBhop is now ENABLED.");
+        PrintToChat(client, "%t", "AutoBhop Enabled");
     }
     else
     {
-        PrintToChat(client, "[Auto Bunnyhop] AutoBhop is now DISABLED.");
+        PrintToChat(client, "%t", "AutoBhop Disabled");
     }
 
     return Plugin_Handled;
