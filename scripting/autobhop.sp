@@ -2,11 +2,12 @@
 #pragma newdecls                required
 
 #include <sourcemod>
-#include <sdktools>
 
 #define PLUGIN_VERSION "1.1"
 
-bool g_Bhop[MAXPLAYERS + 1];
+bool g_Bhop[MAXPLAYERS + 1] = {false, ...};
+
+ConVar g_cvAutoEnable = null;
 
 public Plugin myinfo = 
 {
@@ -19,11 +20,14 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
-    RegConsoleCmd("sm_bhop", Cmd_Bhop);
     LoadTranslations("autobhop.phrases");
+    
+    RegConsoleCmd("sm_bhop", Cmd_Bhop);
+    
+    g_cvAutoEnable = CreateConVar("sm_autobhop_autoenable", "0");
 }
 
-public Action Cmd_Bhop(int client, int args)
+Action Cmd_Bhop(int client, int args)
 {
     if (!IsPlayerAdmin(client))
     {
@@ -41,14 +45,27 @@ public Action Cmd_Bhop(int client, int args)
 
 public Action OnPlayerRunCmd(int client, int &buttons)
 {
-    if (client > 0 && g_Bhop[client] && IsPlayerAlive(client)
-    && buttons & IN_JUMP && ~GetEntProp(client, Prop_Send, "m_fFlags") & FL_ONGROUND)
+    if (client && g_Bhop[client] && IsPlayerAlive(client) && buttons & IN_JUMP
+    && ~GetEntProp(client, Prop_Send, "m_fFlags") & FL_ONGROUND && GetEntityMoveType(client) != MOVETYPE_LADDER)
     {
-        if (GetEntityMoveType(client) != MOVETYPE_LADDER)
         buttons &= ~IN_JUMP;
     }
 
     return Plugin_Continue;
+}
+
+public void OnClientPostAdminCheck(int client)
+{
+    if (!GetConVarBool(g_cvAutoEnable) || !IsClientInGame(client) || IsFakeClient(client) || !IsPlayerAdmin(client)) {
+        return;
+    }
+
+    g_Bhop[client] = true;
+}
+
+public void OnClientDisconnect(int client)
+{
+    g_Bhop[client] = false;
 }
 
 bool IsPlayerAdmin(int client)
