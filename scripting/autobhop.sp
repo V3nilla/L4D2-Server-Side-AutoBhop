@@ -44,6 +44,7 @@ public Action OnPlayerRunCmd(int client, int &buttons)
     if (client > 0 && g_Bhop[client] && IsPlayerAlive(client)
     && buttons & IN_JUMP && ~GetEntProp(client, Prop_Send, "m_fFlags") & FL_ONGROUND)
     {
+        if (GetEntityMoveType(client) != MOVETYPE_LADDER)
         buttons &= ~IN_JUMP;
     }
 
