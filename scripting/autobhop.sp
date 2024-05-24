@@ -11,7 +11,7 @@ bool g_Bhop[MAXPLAYERS + 1];
 public Plugin myinfo = 
 {
     name =        "[L4D2] Server-Side Auto Bunnyhop",
-    author =      "Vanilla",
+    author =      "Vanilla, TouchMe",
     description = "Automatically enables bunnyhopping for players.",
     version =     PLUGIN_VERSION,
     url =         "https://github.com/V3nilla/L4D2-Server-Side-AutoBhop"
