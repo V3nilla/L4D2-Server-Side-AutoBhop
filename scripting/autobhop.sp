@@ -12,7 +12,7 @@ public Plugin myinfo =
 {
     name =        "[L4D2] Server-Side Auto Bunnyhop",
     author =      "Vanilla, TouchMe",
-    description = "Automatically enables bunnyhopping for players.",
+    description = "Allows admins to enable autobhop.",
     version =     PLUGIN_VERSION,
     url =         "https://github.com/V3nilla/L4D2-Server-Side-AutoBhop"
 };
